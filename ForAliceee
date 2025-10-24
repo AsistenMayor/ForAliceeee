@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Untuk Alice — Mohon Maaf & Sebuah Undangan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #ffeef4, #ffffff);
+      overflow-x: hidden;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      position: relative;
+    }
+    h1 { font-size: 2.2em; color: #ff6fa3; margin-bottom: 10px; }
+    p.lead { font-size: 1.1em; color: #666; max-width: 480px; margin: 0 auto; }
+    main { display: flex; flex-direction: column; align-items: center; padding: 40px 20px 100px; }
+    .card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 30px 24px;
+      max-width: 520px;
+      text-align: center;
+      transition: 0.5s;
+      position: relative;
+    }
+    .hidden { display: none; }
+    button {
+      background: #ff6fa3;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1em;
+      margin-top: 20px;
+      box-shadow: 0 5px 12px rgba(255,111,163,0.25);
+    }
+    button:hover { background: #ff85b4; transform: scale(1.05); }
+    .hearts, .confetti { position: fixed; inset: 0; overflow: hidden; z-index: -1; }
+    .heart { position: absolute; animation: float 8s linear infinite; opacity: 0.8; }
+    @keyframes float { from { transform: translateY(100vh) scale(0.6); opacity: 1; } to { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+    footer { text-align: center; padding: 20px; color: #aaa; font-size: 0.9em; }
+    .confetti-piece { position: absolute; width: 10px; height: 10px; background-color: #ff6fa3; opacity: 0.8; }
+  </style>
+</head>
+<body>
+
+  <div class="hearts"></div>
+  <div class="confetti"></div>
+
+  <audio autoplay loop>
+    <source src="https://files.catbox.moe/b4ipqv.mp3" type="audio/mpeg">
+  </audio>
+
+  <header>
+    <h1>Untuk Alice 💌</h1>
+    <p class="lead">Sebuah undangan kecil dari seseorang yang ingin dipercaya lagi — karena ia tahu, kamu terlalu berharga untuk dilepaskan begitu saja.</p>
+  </header>
+
+  <main>
+    <div class="card" id="scene1">
+      <h2>Hai Alice...</h2>
+      <p>Aku tahu akhir-akhir ini aku mungkin terlihat seperti orang yang nggak bisa dijaga kata-katanya. Tapi jujur, aku cuma manusia yang sedang belajar untuk jadi lebih baik — untuk kamu.</p>
+      <button onclick="nextScene(2)">Lanjut 💗</button>
+    </div>
+
+    <div class="card hidden" id="scene2">
+      <h2>Mungkin kamu kecewa...</h2>
+      <p>Dan aku ngerti banget kalau kepercayaan itu nggak bisa diminta begitu aja. Tapi aku ingin pelan-pelan nunjukin, kalau aku nggak seburuk itu. Kalau aku benar-benar mau berubah.</p>
+      <button onclick="nextScene(3)">Lanjut lagi 🌸</button>
+    </div>
+
+    <div class="card hidden" id="scene3">
+      <h2>Kalau boleh...</h2>
+      <p>Bolehkah aku undang kamu — bukan ke pesta, tapi ke kesempatan kedua? Tempat di mana aku bakal buktiin semuanya, bukan cuma lewat kata-kata.</p>
+      <button onclick="nextScene(4)">Buka undangannya 💌</button>
+    </div>
+
+    <div class="card hidden" id="scene4">
+      <h2>✨ Undangan Hati ✨</h2>
+      <p>Datanglah kapan pun kamu siap. Di sana ada aku — bukan versi sempurna, tapi yang selalu berusaha lebih baik dari kemarin.  
+      Aku janji, aku akan belajar untuk menjaga hati kamu sepenuhnya.</p>
+      <button onclick="nextScene(5)">Aku mau percaya... 💞</button>
+    </div>
+
+    <div class="card hidden" id="scene5">
+      <h2>Terima kasih, Alice 💖</h2>
+      <p>Kamu nggak tahu seberapa besar artinya buatku — dikasih kesempatan untuk dipercaya lagi.  
+      Lagu ini, halaman ini, semuanya cuma cara kecil buat bilang:  
+      <br><strong>“Aku masih di sini, dan aku masih pilih kamu.”</strong></p>
+      <p style="margin-top:16px; color:#999;">(Mainkan musiknya sambil lihat hati-hati kecilnya terbang... karena tiap hati itu doa kecil dari aku buat kamu 🕊️)</p>
+    </div>
+  </main>
+
+  <footer>© 2025 Untuk Alice | Dibuat dengan tulus 💌</footer>
+
+  <script>
+    function nextScene(n) {
+      document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+      const scene = document.getElementById('scene'+n);
+      scene.classList.remove('hidden');
+      if(n === 5) startConfetti();
+    }
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = "💗";
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = 12 + Math.random() * 24 + "px";
+      heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+      document.querySelector('.hearts').appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }
+    setInterval(createHeart, 400);
+
+    // Confetti
+    function startConfetti() {
+      const colors = ['#ff6fa3','#ff85b4','#ffd9e8','#ffeef4'];
+      const confettiContainer = document.querySelector('.confetti');
+      for(let i=0;i<150;i++){
+        const conf = document.createElement('div');
+        conf.classList.add('confetti-piece');
+        conf.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+        conf.style.left = Math.random()*100 + '%';
+        conf.style.top = Math.random()*-20 + '%';
+        conf.style.width = 6 + Math.random()*8 + 'px';
+        conf.style.height = 6 + Math.random()*8 + 'px';
+        conf.style.opacity = Math.random();
+        conf.style.transform = `rotate(${Math.random()*360}deg)`;
+        confettiContainer.appendChild(conf);
+
+        // Animate
+        let fall = () => {
+          const top = parseFloat(conf.style.top);
+          if(top < 100){
+            conf.style.top = top + 1 + '%';
+            requestAnimationFrame(fall);
+          } else {
+            conf.remove();
+          }
+        }
+        fall();
+      }
+    }
+  </script>
+</body>
+</html>
